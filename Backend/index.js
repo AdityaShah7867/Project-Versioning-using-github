@@ -66,7 +66,6 @@ app.post("/version", async (req, res) => {
 app.get("/version", async (req, res) => {
   try {
     const version = await Version.findOne();
-    
     if (!version) {
       return res.status(500).json({ error: "Version not initialized" });
     }
