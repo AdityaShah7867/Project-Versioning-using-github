@@ -59,6 +59,8 @@ app.post("/version", async (req, res) => {
   } catch (error) {
     console.error("Error updating version:", error);
     res.status(500).json({ error: "Failed to update version" });
+
+    
   }
 });
 
