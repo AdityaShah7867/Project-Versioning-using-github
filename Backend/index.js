@@ -59,8 +59,6 @@ app.post("/version", async (req, res) => {
   } catch (error) {
     console.error("Error updating version:", error);
     res.status(500).json({ error: "Failed to update version" });
-
-    
   }
 });
 
@@ -68,7 +66,6 @@ app.post("/version", async (req, res) => {
 app.get("/version", async (req, res) => {
   try {
     const version = await Version.findOne();
-    
     if (!version) {
       return res.status(500).json({ error: "Version not initialized" });
     }
