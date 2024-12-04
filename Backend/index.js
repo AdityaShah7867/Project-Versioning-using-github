@@ -60,6 +60,8 @@ app.post("/version", async (req, res) => {
     console.error("Error updating version:", error);
     res.status(500).json({ error: "Failed to update version" });
   }
+
+  
 });
 
 // API endpoint to get current version
