@@ -1,0 +1,33 @@
+name: Increment Version
+
+on:
+  push:
+    branches:
+      - dev
+      - deploy
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Call Version API
+        id: version_api
+        run: |
+          BRANCH=$(echo ${{ github.ref_name }})
+          echo "Branch: $BRANCH"
+
+          # Call the API
+          RESPONSE=$(curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -d "{\"branch\": \"$BRANCH\"}" \
+            "https://project-versioning-using-github.onrender.com/version")
+
+          VERSION=$(echo $RESPONSE | jq -r '.version')
+          echo "::set-output name=version::$VERSION"
+
+      - name: Display the new version
+        run: echo "The new version is ${{ steps.version_api.outputs.version }}"
